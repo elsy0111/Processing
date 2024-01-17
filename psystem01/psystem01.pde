@@ -9,7 +9,7 @@ void setup(){
   control = new CameraControl(this); // setup()の中でnewするだけ
 
   particles = new ArrayList<Particle>();
-  int R = 60;
+  int R = 300;
   for (int i = 0; i < N; ++i){
     Particle p_elem = new Particle(
                       new PVector(
@@ -24,9 +24,13 @@ void setup(){
 }
 
 int cnt = 0;
+int flame = 0;
+boolean DEBUG;
+
 void draw(){
 	background(255);
   ++cnt;
+  ++flame;
 
 /*
   camera(0,width,0,
@@ -45,7 +49,13 @@ void draw(){
 	translate(width/2, height/2);
 
   lights();
+  fill(0,0,0);
   sphere(50);
+
+  // Draw Axis
+  line(-1500, 0, 0, 1500, 0, 0);
+  line(0, -1500, 0, 0, 1500, 0);
+  line(0, 0, -1500, 0, 0, 1500);
 
   for (int x=-1500; x<=1500; x+=50) {
     line( x, 100, -1500, x, 100, 1500 );
@@ -56,11 +66,12 @@ void draw(){
 
   noStroke();
 
+  if (flame % 10 == 0) DEBUG = true;
   for (Particle p : particles){
-    p.show();
-    p.update();
+    p.show(DEBUG);
+    p.update(flame);
   }
-
+  DEBUG = false;
 }
 
 
