@@ -1,25 +1,31 @@
-String [] p = new String[]{"x","y","z"};
+int Vr = 10;
+
 class Particle{
   PVector location;
   PVector velocity;
   PVector acceleration = new PVector();
   float hue;
   float sc;
+  float Vlim;
+  float f;
 
-  int R = 2;
-  Particle (PVector loc){ 
-    velocity = new PVector(random(-R,R),
-                           random(-R,R),
-                           random(-R,R));
+  Particle (PVector loc, int R){ 
+    velocity = new PVector(
+                          Vr,
+                          0,
+                          Vr
+                          );
     velocity.mult(1);
     location = loc;
-    hue = random(255);
+    Vlim = L2_norm(loc)/25;
+    hue  = L2_norm(loc)/R * 255;
+    f = random(300);
   }
 
-  void update(int flame){
+  void update(int flame, int black_hole){
 //    println("acceleration :", acceleration);
 //    println("location :", location);
-    if (flame > hue){ 
+    if (flame > f){ 
       acceleration.set(location);
       location.add(velocity);
       acceleration.mult(-0.001);
@@ -29,20 +35,28 @@ class Particle{
   }
 
   float L2_norm(PVector A){
-    float norm = 0;
+    //float norm = 0;
     //for (double ai : A){
     //  norm += pow(abs(ai),2);
     //}
     //pow(abs(A.x),2) + pow(abs(A.y),2) + pow(abs(A.z),2)
-    norm = sqrt(A.dot(A));
+    float norm = sqrt(A.dot(A));
     return norm;
   }
 
+  PVector reduce(PVector vec, float lim){
+    return vec.normalize().mult(lim * 0.95);
+  }
+
   void show(boolean DEBUG){
-    if (DEBUG) println(L2_norm(velocity));
-    fill(hue, sc, 255);
+//    if (DEBUG) println(L2_norm(velocity));
+    if (L2_norm(velocity) > Vlim){
+      println(velocity,":",L2_norm(velocity),"is over than",Vlim);
+      velocity = reduce(velocity, Vlim);
+    }
+    fill(hue, hue, 255);
     translate(location.x, location.y, location.z);
-    sphere(20);
+    sphere(10);
     translate(-location.x, -location.y, -location.z);
   }
 }

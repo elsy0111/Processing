@@ -1,6 +1,11 @@
 CameraControl control; // カメラ操作
 ArrayList<Particle> particles;
-int N = 10;
+int N = 500;
+
+int rand_sign(){
+  if (int(random(10))%2 == 1) return 1;
+  else return -1;
+}
 
 void setup(){
   size(1000, 1000, P3D);
@@ -9,27 +14,26 @@ void setup(){
   control = new CameraControl(this); // setup()の中でnewするだけ
 
   particles = new ArrayList<Particle>();
-  int R = 300;
+  int R = 500;
   for (int i = 0; i < N; ++i){
     Particle p_elem = new Particle(
                       new PVector(
-                        random(-R,R),
-                        random(-R,R),
-                        random(-R,R)
-                      ));
+                        0*rand_sign() * random(R/4,R),
+                        rand_sign() * random(R/4,R),
+                        0*rand_sign() * random(R/4,R)
+                      ), R);
     particles.add(p_elem);
   }
 
-  frameRate(60);
+//  frameRate(60);
 }
 
-int cnt = 0;
 int flame = 0;
-boolean DEBUG;
+int black_hole = 25;
+boolean DEBUG = false;
 
 void draw(){
 	background(255);
-  ++cnt;
   ++flame;
 
 /*
@@ -50,7 +54,7 @@ void draw(){
 
   lights();
   fill(0,0,0);
-  sphere(50);
+  sphere(black_hole);
 
   // Draw Axis
   line(-1500, 0, 0, 1500, 0, 0);
@@ -66,13 +70,11 @@ void draw(){
 
   noStroke();
 
-  if (flame % 10 == 0) DEBUG = true;
-  for (Particle p : particles){
-    p.show(DEBUG);
-    p.update(flame);
+//  if (flame % 10 == 0) DEBUG = true;
+  for (int i = particles.size()-1; i >= 0; --i){
+    particles.get(i).update(flame, black_hole);
+    particles.get(i).show(DEBUG);
   }
   DEBUG = false;
 }
-
-
 
