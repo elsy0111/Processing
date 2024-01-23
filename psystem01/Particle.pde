@@ -1,4 +1,4 @@
-int Vr = 10;
+int Vr = 100;
 
 class Particle{
   PVector location;
@@ -12,14 +12,14 @@ class Particle{
   Particle (PVector loc, int R){ 
     velocity = new PVector(
                           Vr,
-                          0,
-                          Vr
+                          Vr,
+                          0
                           );
     velocity.mult(1);
     location = loc;
-    Vlim = L2_norm(loc)/25;
-    hue  = L2_norm(loc)/R * 255;
-    f = random(300);
+    Vlim = L2_norm(loc)/5;
+    hue  = L2_norm(loc)/sqrt(9)/R * 255;
+    f = random(600);
   }
 
   void update(int flame, int black_hole){
@@ -28,7 +28,7 @@ class Particle{
     if (flame > f){ 
       acceleration.set(location);
       location.add(velocity);
-      acceleration.mult(-0.001);
+      acceleration.mult(-0.01);
       velocity.add(acceleration);
     }
     sc = (max(0, 255 - abs(location.x)) + max(0, 255 - abs(location.y)) + max(0, 255 - abs(location.z)))/3;
@@ -51,12 +51,12 @@ class Particle{
   void show(boolean DEBUG){
 //    if (DEBUG) println(L2_norm(velocity));
     if (L2_norm(velocity) > Vlim){
-      println(velocity,":",L2_norm(velocity),"is over than",Vlim);
+      // println(velocity,":",L2_norm(velocity),"is over than",Vlim);
       velocity = reduce(velocity, Vlim);
     }
     fill(hue, hue, 255);
     translate(location.x, location.y, location.z);
-    sphere(10);
+    sphere(15);
     translate(-location.x, -location.y, -location.z);
   }
 }
