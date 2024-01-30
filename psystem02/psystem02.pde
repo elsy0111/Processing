@@ -1,6 +1,6 @@
 CameraControl control; // カメラ操作
 ArrayList<Particle> particles;
-int N = 5;
+int N = 20;
 
 int rand_sign(){
   if (int(random(10))%2 == 1) return 1;
@@ -8,13 +8,13 @@ int rand_sign(){
 }
 
 void setup(){
-  size(1200, 1200, P3D);
+  size(1100, 1000, P3D);
   colorMode(HSB); 
 
   control = new CameraControl(this); // setup()の中でnewするだけ
 
   particles = new ArrayList<Particle>();
-  int R = 75;
+  int R = 20;
   for (int i = -N; i <= N; ++i){
 	  for (int j = -N; j <= N; ++j){
 		  for (int k = -N; k <= N; ++k){
@@ -80,4 +80,3 @@ void draw(){
   }
   DEBUG = false;
 }
-
