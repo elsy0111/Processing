@@ -8,16 +8,18 @@ class Particle{
   Particle (PVector loc, int R){ 
     velocity = new PVector(
                           0,
-                          0,
+                          -1,
                           0
                           );
     location = loc;
+    hue = random(100,255);
   }
 
   void update(int flame){
 //    println("acceleration :", acceleration);
 //    println("location :", location);
-    hue  = 255 * noise((flame + 0.1 * L2_norm(location)) * .0006);
+    location.add(velocity);
+    hue-=0.4;
   }
 
   float L2_norm(PVector A){
@@ -30,12 +32,11 @@ class Particle{
 
   void show(boolean DEBUG){
 //    if (DEBUG) println(L2_norm(velocity));
-    if (hue >= 255 - 1){
-    float n = L2_norm(location) / 200;
-    n %= 280;
-    fill(n, 255, 255);
-    //fill(0,0,0);
+    if (hue >= 0){
+    fill(hue, 255, 255);
+    textSize(5);
     translate(location.x, -location.y, location.z);
+    text(hue, 1, 0);
     sphere(Vr);
     translate(-location.x, location.y, -location.z);
     }

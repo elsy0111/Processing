@@ -1,6 +1,7 @@
 CameraControl control; // カメラ操作
 ArrayList<Particle> particles;
-int N = 20;
+int N = 5;
+int R = 100;
 
 int rand_sign(){
   if (int(random(10))%2 == 1) return 1;
@@ -9,26 +10,9 @@ int rand_sign(){
 
 void setup(){
   size(1100, 1000, P3D);
-  colorMode(HSB); 
-
-  control = new CameraControl(this); // setup()の中でnewするだけ
-
   particles = new ArrayList<Particle>();
-  int R = 20;
-  for (int i = -N; i <= N; ++i){
-	  for (int j = -N; j <= N; ++j){
-		  for (int k = -N; k <= N; ++k){
-			Particle p_elem = new Particle(
-							  new PVector(
-								R * i, 
-								R * j, 
-								R * k
-							  ), R);
-			particles.add(p_elem);
-		  }
-	  }
-  }
-
+  control = new CameraControl(this); // setup()の中でnewするだけ
+  colorMode(HSB); 
   frameRate(60);
 }
 
@@ -37,6 +21,18 @@ boolean DEBUG = false;
 int endline = 2500; 
 
 void draw(){
+    if (flame % 200 == 0){
+      for (int i = -N; i <= N; ++i){
+        Particle p_elem = new Particle(
+                          new PVector(
+                            R * i, 
+                            200,
+                            0
+                          ), R);
+        particles.add(p_elem);
+      }
+    }
+
   background(255);
   ++flame;
 
@@ -46,7 +42,7 @@ void draw(){
   fill(0); 
   translate( width, 0, width/3);
   textSize(55); 
-  text("N : " + N + "^3 = " + (N * N * N) , -width/3, height/2);
+  text("N : " + particles.size(), -width/3, height/2);
   translate(-width, 0, -width/3);
 
   translate(width/2, height/2);
@@ -75,8 +71,12 @@ void draw(){
 
 //  if (flame % 10 == 0) DEBUG = true;
   for (int i = particles.size()-1; i >= 0; --i){
-    particles.get(i).update(flame);
-    particles.get(i).show(DEBUG);
+    if (particles.get(i).hue < 0){
+        particles.remove(i);
+    }else{
+        particles.get(i).update(flame);
+        particles.get(i).show(DEBUG);
+    }
   }
   DEBUG = false;
 }
