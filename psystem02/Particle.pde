@@ -1,25 +1,20 @@
-int Vr = 10;
-
 class Particle{
   PVector location;
-  PVector velocity;
   float hue;
+  float R;
 
-  Particle (PVector loc, int R){ 
-    velocity = new PVector(
-                          0,
-                          -1,
-                          0
-                          );
+  Particle (PVector loc, float R0){ 
     location = loc;
     hue = random(200,255);
+    R = R0;
   }
 
   void update(int flame){
 //    println("acceleration :", acceleration);
 //    println("location :", location);
-    location.add(velocity);
-    if (location.y < 0) hue = -1; 
+    location.y -= 5 * noise(L2_norm(location) * 0.0001);
+    location.x += 8 * noise(L2_norm(location) * 0.0001) - 4;
+    if (location.y < -500) hue = -1; 
 //    hue-=1;
   }
 
@@ -38,7 +33,7 @@ class Particle{
     textSize(5);
     translate(location.x, -location.y, location.z);
     text(hue, 1, 0);
-    sphere(Vr);
+    sphere(R);
     translate(-location.x, location.y, -location.z);
     }
   }

@@ -3,8 +3,9 @@ ArrayList<Particle> particles;
 ArrayList<Bullet> bullets; 
 Ship ship;
 
-int N = 5;
-int R = 100;
+int N = 10;
+int R = 80;
+int EnemyR = 30;
 
 boolean h, j, k, l, shoot;
 
@@ -27,15 +28,19 @@ int flame = 0;
 boolean DEBUG = false;
 int endline = 2500; 
 
+float euclid(float x, float y, float xx, float yy){
+  return sqrt((x - xx) * (x - xx) + (y - yy) * (y - yy));
+}
+
 void draw(){
-    if (flame % 200 == 0){
+    if (flame % 100 == 0){
       for (int i = -N; i <= N; ++i){
         Particle p_elem = new Particle(
                           new PVector(
                             R * i, 
-                            300,
+                            700,
                             0
-                          ), R);
+                          ), EnemyR);
         particles.add(p_elem);
       }
     }
@@ -88,4 +93,37 @@ void draw(){
   }
   DEBUG = false;
   ship.move(h, j, k, l); 
+
+  if (shoot && flame % 4 == 0){
+    Bullet p_elem = new Bullet(ship.location.x, ship.location.y);
+    bullets.add(p_elem);
+  }
+  
+  for (int i = bullets.size() - 1; i >= 0; --i){
+    bullets.get(i).update();
+    bullets.get(i).show();
+    if (bullets.get(i).location.y >= 500){
+      bullets.remove(i);
+    }
+  }
+
+  for (int i = bullets.size() - 1; i >= 0; --i){
+    boolean rmv = false;
+    for (int j = particles.size()-1; j >= 0; --j){
+      if (euclid(bullets.get(i).location.x, bullets.get(i).location.y,
+                 particles.get(j).location.x, particles.get(j).location.y)
+                  <= bullets.get(i).r + particles.get(j).R){
+          // particles.remove(j);
+          particles.get(j).R -= 9;
+          if (particles.get(j).R <= 0){
+            particles.remove(j);
+          }
+          rmv = true;
+          }
+    }
+    if (rmv){
+      bullets.remove(i);
+    }
+  }
+
 }

@@ -1,4 +1,4 @@
-float sp = 8; 
+float sp = 7; 
 class Ship{
     PVector location; 
     Ship (float x0, float y0){
@@ -8,7 +8,7 @@ class Ship{
 
     void show(){
         translate(location.x, -location.y, location.z);
-        box(25); 
+        box(30); 
         translate(-location.x, location.y,-location.z);
     }
     

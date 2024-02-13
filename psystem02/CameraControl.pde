@@ -1,45 +1,45 @@
 boolean w,a,s,d,e,c,up,down,left,right;
 
 void keyPressed(){
-  if (key == 'w')		    w     = true;
-  if (key == 'a')		    a     = true;
-  if (key == 's')		    s     = true;
-  if (key == 'd')		    d     = true;
-  if (key == 'e')		    e     = true;
-  if (key == 'c')		    c     = true;
+  if (key == 'w')		    k     = true;
+  if (key == 'a')		    h     = true;
+  if (key == 's')		    j     = true;
+  if (key == 'd')		    l     = true;
+  if (key == 'e')		    w     = true;
+  if (key == 'c')		    s     = true;
   if (keyCode == UP)    up    = true;
   if (keyCode == DOWN)  down  = true;
   if (keyCode == LEFT)  left  = true;
   if (keyCode == RIGHT) right = true;
 
 
-  if (key == 'h')		    h     = true;
-  if (key == 'j')		    j     = true;
-  if (key == 'k')		    k     = true;
-  if (key == 'l')		    l     = true;
+  if (key == 'h')		    a     = true;
+  if (key == 'j')		    c    = true;
+  if (key == 'k')		    e     = true;
+  if (key == 'l')		    d     = true;
 
-  if (key = ' ')            shoot = true; 
+  if (key == ' ')        shoot = true; 
 }
 
 void keyReleased(){
-  if (key == 'w')		    w     = false;
-  if (key == 'a')		    a     = false;
-  if (key == 's')		    s     = false;
-  if (key == 'd')		    d     = false;
-  if (key == 'e')		    e     = false;
-  if (key == 'c')		    c     = false;
+  if (key == 'w')		    k     = false;
+  if (key == 'a')		    h     = false;
+  if (key == 's')		    j     = false;
+  if (key == 'd')		    l     = false;
+  if (key == 'e')		    w     = false;
+  if (key == 'c')		    s     = false;
   if (keyCode == UP)    up    = false;
   if (keyCode == DOWN)  down  = false;
   if (keyCode == LEFT)  left  = false;
   if (keyCode == RIGHT) right = false;
 
 
-  if (key == 'h')		    h     = false;
-  if (key == 'j')		    j     = false;
-  if (key == 'k')		    k     = false;
-  if (key == 'l')		    l     = false;
+  if (key == 'h')		    a     = false;
+  if (key == 'j')		    c     = false;
+  if (key == 'k')		    e     = false;
+  if (key == 'l')		    d     = false;
 
-  if (key = ' ')            shoot = false; 
+  if (key == ' ')            shoot = false; 
 }
 
 // --------------------------------------------------------------
