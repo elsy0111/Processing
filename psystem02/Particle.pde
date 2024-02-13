@@ -1,4 +1,4 @@
-int Vr = 5;
+int Vr = 10;
 
 class Particle{
   PVector location;
@@ -12,14 +12,15 @@ class Particle{
                           0
                           );
     location = loc;
-    hue = random(100,255);
+    hue = random(200,255);
   }
 
   void update(int flame){
 //    println("acceleration :", acceleration);
 //    println("location :", location);
     location.add(velocity);
-    hue-=0.4;
+    if (location.y < 0) hue = -1; 
+//    hue-=1;
   }
 
   float L2_norm(PVector A){

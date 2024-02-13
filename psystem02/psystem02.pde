@@ -1,7 +1,12 @@
 CameraControl control; // カメラ操作
 ArrayList<Particle> particles;
+ArrayList<Bullet> bullets; 
+Ship ship;
+
 int N = 5;
 int R = 100;
+
+boolean h, j, k, l, shoot;
 
 int rand_sign(){
   if (int(random(10))%2 == 1) return 1;
@@ -11,7 +16,9 @@ int rand_sign(){
 void setup(){
   size(1100, 1000, P3D);
   particles = new ArrayList<Particle>();
+  bullets = new ArrayList<Bullet>(); 
   control = new CameraControl(this); // setup()の中でnewするだけ
+  ship = new Ship(0, 0); 
   colorMode(HSB); 
   frameRate(60);
 }
@@ -26,7 +33,7 @@ void draw(){
         Particle p_elem = new Particle(
                           new PVector(
                             R * i, 
-                            200,
+                            300,
                             0
                           ), R);
         particles.add(p_elem);
@@ -68,6 +75,7 @@ void draw(){
 */
 
   noStroke();
+  ship.show(); 
 
 //  if (flame % 10 == 0) DEBUG = true;
   for (int i = particles.size()-1; i >= 0; --i){
@@ -79,4 +87,5 @@ void draw(){
     }
   }
   DEBUG = false;
+  ship.move(h, j, k, l); 
 }

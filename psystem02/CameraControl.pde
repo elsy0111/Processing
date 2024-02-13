@@ -1,4 +1,3 @@
-
 boolean w,a,s,d,e,c,up,down,left,right;
 
 void keyPressed(){
@@ -12,6 +11,14 @@ void keyPressed(){
   if (keyCode == DOWN)  down  = true;
   if (keyCode == LEFT)  left  = true;
   if (keyCode == RIGHT) right = true;
+
+
+  if (key == 'h')		    h     = true;
+  if (key == 'j')		    j     = true;
+  if (key == 'k')		    k     = true;
+  if (key == 'l')		    l     = true;
+
+  if (key = ' ')            shoot = true; 
 }
 
 void keyReleased(){
@@ -25,6 +32,14 @@ void keyReleased(){
   if (keyCode == DOWN)  down  = false;
   if (keyCode == LEFT)  left  = false;
   if (keyCode == RIGHT) right = false;
+
+
+  if (key == 'h')		    h     = false;
+  if (key == 'j')		    j     = false;
+  if (key == 'k')		    k     = false;
+  if (key == 'l')		    l     = false;
+
+  if (key = ' ')            shoot = false; 
 }
 
 // --------------------------------------------------------------
