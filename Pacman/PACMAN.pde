@@ -1,13 +1,13 @@
 int N = 10;
 int GRID = 10;
 int w = 80;
-// Walker Alice;
+Cell cell;
 ArrayList<Mover> movers; 
 
 void setup(){
     size(800,800);
     colorMode(HSB);
-    // Alice = new Walker(int(random(GRID)), int(random(GRID)));
+    cell = new Cell();
     movers = new ArrayList<Mover>(); 
     for (int i = 0; i < N; ++i){
         Mover mover = new Mover(int(random(GRID)), int(random(GRID)));
@@ -30,9 +30,10 @@ void draw(){
 
 void ShowGrid(int GRID, int w){
     stroke(0);
-    fill(0);
+    strokeWeight(1);
     for (int i = 0; i < GRID; ++i){
         for (int j = 0; j < GRID; ++j){
+            fill(cell.Cell_cnt[i][j],cell.Cell_cnt[i][j],255);
             rect(i * w + 2, j * w + 2, w - 4, w - 4);
         }
     }
